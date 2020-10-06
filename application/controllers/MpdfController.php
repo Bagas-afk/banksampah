@@ -14,12 +14,12 @@ class MpdfController extends CI_Controller
     {
         require_once APPPATH . 'vendor/autoload.php';
         $data = $this->load->view('mpdf_v','',true);
-        
+
         $mpdf = new \Mpdf\Mpdf([
     'debug' => true,
     'allow_output_buffering' => true
 ]);
         $mpdf->WriteHTML($data);
-        $mpdf->Output('test.pdf','I');
+        $mpdf->Output();
     }
 }
