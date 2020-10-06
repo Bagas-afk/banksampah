@@ -1,6 +1,5 @@
 <table class="table">
-    <thead class="">
-        <div class="container">
+    <thead>
             <tr>
                 <th scope=" col">No</th>
                 <th scope="col">Jenis Sampah</th>
@@ -9,8 +8,7 @@
                 <th scope="col">Satuan</th>
                 <th scope="col">Action</th>
             </tr>
-        </div>
     </thead>
     <tbody>
-
+    </tbody>
 </table>
