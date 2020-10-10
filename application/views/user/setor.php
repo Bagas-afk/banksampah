@@ -12,12 +12,6 @@
                     <div class="form-group row">
                     </div>
                     <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Tanggal</label>
-                        <div class="col-sm-4">
-                            <input type="date" name="tanggal" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Nama Nasabah</label>
                         <div class="col-sm-4">
                             <select name="namanasabah" class="form-control" required onchange="tampilRekening()" id="namaNasabah">
@@ -26,12 +20,6 @@
                                     <option value="<?= $nasabah->id_user ?>"><?= $nasabah->nama ?></option>
                                 <?php  } ?>
                             </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Nomor Rekening</label>
-                        <div class="col-sm-4">
-                            <input type="norekening" readonly class="form-control" id="no_rek" value>
                         </div>
                     </div>
             </table>
@@ -90,16 +78,17 @@
                 <tbody>
                     <?php
                     $no = 1;
-                    foreach ($setor as $setor) { ?>
+                    foreach ($setor as $tampil) { ?>
                         <tr>
                             <td><?= $no++ ?></td>
-                            <td><?= $setor->nama ?></td>
-                            <td><?= $setor->kategori ?></td>
-                            <td><?= $setor->jenis_sampah ?></td>
-                            <td><?= $setor->satuan ?></td>
-                            <td><?= $setor->harga ?></td>
-                            <td><?= $setor->jumlah ?></td>
-                            <td><?= $setor->sub_total ?></td>
+                            <td><?= $tampil->nama ?></td>
+                            <td><?= $tampil->jenis_sampah ?></td>
+                            <td><?= $tampil->kategori ?></td>
+                            <td><?= $tampil->satuan ?></td>
+                            <td><?= $tampil->harga ?></td>
+                            <td><?= $tampil->jumlah ?></td>
+                            <td><?= $tampil->sub_total ?></td>
+
                         </tr>
                     <?php } ?>
                 </tbody>

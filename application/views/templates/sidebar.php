@@ -40,6 +40,11 @@
                 <i class="fas fa-fw fa-trash"></i>
                 <span>Setor Sampah</span></a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('user/verifikasi'); ?>">
+                <i class="fas fa-fw fa-money-check-alt"></i>
+                <span>Verifikasi Penarikan</span></a>
+        </li>
 
 
         <!-- Divider -->
@@ -85,6 +90,11 @@
                 <i class="fas fa-fw fa-user-alt"></i>
                 <span>My Profile</span></a>
         </li>
+        <!-- <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('user/editProfile'); ?>">
+                <i class="fas fa-fw fa-user-alt"></i>
+                <span>Edit Profile</span></a>
+        </li> -->
         <li class="nav-item">
             <a class="nav-link" href="<?= base_url('user/cek_saldo'); ?>">
                 <i class="fas fa-fw fa-money-check-alt"></i>

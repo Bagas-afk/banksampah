@@ -29,8 +29,6 @@ class Auth extends CI_Controller
 
     private function _login()
     {
-        // $this->load->view('templates/headher');
-        // $this->load->view('templates/footer');
         $email = $this->input->post('email');
         $password = $this->input->post('password');
         $user = $this->db->get_where('user', ['email' => $email])->row_array();
@@ -44,6 +42,7 @@ class Auth extends CI_Controller
                 // cek password
                 if (password_verify($password, $user['password'])) {
                     $data = [
+                        'id_user' => $user['id_user'],
                         'email' => $user['email'],
                         'role_id' => $user['role_id']
                     ];
@@ -51,7 +50,7 @@ class Auth extends CI_Controller
                     if ($user['role_id'] == 1) {
                         redirect('user');
                     } else {
-                        redirect('nasabah');
+                        redirect('user/index_nasabah');
                     }
                 } else {
                     $this->session->set_flashdata(
@@ -99,8 +98,8 @@ class Auth extends CI_Controller
         if ($this->form_validation->run() == false) {
             $data['title'] = 'User Registration';
             $this->load->view('auth/registration');
-            $this->load->view('templates/header', $data);
             $this->load->view('templates/footer');
+            $this->load->view('templates/header', $data);
         } else {
             $data = [
                 'nama' => htmlspecialchars($this->input->post('nama', true)),
@@ -126,7 +125,7 @@ class Auth extends CI_Controller
         if ($this->session->userdata('role_id') == 1) {
             redirect('user');
         } elseif ($this->session->userdata('role_id') == 2) {
-            redirect('user');
+            redirect('user/index_nasabah');
         } else {
             echo "Tidak Ada Role";
         }

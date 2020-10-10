@@ -28,6 +28,8 @@ class Nasabah extends CI_Controller
     {
         $data['user'] = $this->db->get_where('user', ['email' =>
         $this->session->userdata('email')])->row_array();
+        $this->load->model('ModelSetor');
+        $data['subtotal'] = $this->ModelSetor->saldoNasabah(['id_nasabah' => $this->session->userdata('id_nasabah')])->get_array();
 
         $data['title'] = 'Cek Saldo';
         $this->load->view('templates/header', $data);

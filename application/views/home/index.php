@@ -20,6 +20,7 @@
     <link href="<?= base_url('assets/'); ?>datatables/datatables.css" rel="stylesheet">
     <link href="<?= base_url('assets/'); ?>fontawesome/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url('assets/style.css'); ?>">
+    <link rel="icon" type="image/jpg" href="<?= base_url('assets/img/'); ?>banksampah.jpg">
 
 <body>
     <div class="container-fluid">

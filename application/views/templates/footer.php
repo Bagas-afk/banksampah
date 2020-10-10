@@ -50,6 +50,13 @@
 <script src="<?= base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
 <script src="<?= base_url('assets/'); ?>js/my_script.js"></script>
 
+<script>
+    $('.custom-file-input').on('change', function() {
+        let filename = $(this).val().split('\\').pop();
+        $(this).next('custom-file-label').addClass("selected").html(filename);
+    });
+</script>
+
 </body>
 
 </html>

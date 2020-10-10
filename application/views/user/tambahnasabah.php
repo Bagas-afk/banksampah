@@ -115,23 +115,6 @@
                         <input type="text" name="pekerjaan" class="form-control" id="inputPassword3">
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label for="inputPassword3" class="col-sm-2 col-form-label">Bank Account</label>
-                    <div class="col-sm-10">
-                        <select id="inputState" name="bank" class="form-control col-md-3">
-                            <option selected>Choose...</option>
-                            <option>Bank Central Asia</option>
-                            <option>Mandiri</option>
-                            <option>CIMB Niaga</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputPassword3" class="col-sm-2 col-form-label">No Rekening</label>
-                    <div class="col-sm-4">
-                        <input type="number" name="no_rekening" class="form-control" id="inputPassword3">
-                    </div>
-                </div>
                 <button type="submit" class="btn btn-primary">Simpan</button>
                 <a href="<?= base_url('user/nasabah') ?>" type="submit" class="btn btn-secondary">Batal</a>
             </form>

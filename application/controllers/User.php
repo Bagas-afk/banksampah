@@ -13,6 +13,9 @@ class User extends CI_Controller
 
     public function index()
     {
+        if ($this->session->userdata('role_id') != '1') {
+            redirect('auth/cek_session');
+        }
         $data['user'] = $this->db->get_where('user', ['email' =>
         $this->session->userdata('email')])->row_array();
 
@@ -47,15 +50,30 @@ class User extends CI_Controller
     {
         $id_nasabah = $this->input->post('namanasabah');
         $id_sampah = $this->input->post('jenis_sampah');
+        $sub_total = $this->input->post('subtotal');
         $data = [
             'id_setoran' => '',
-            'tanggal' => $this->input->post('tanggal'),
+            'tanggal' => date('Y-m-d H:i:s'),
             'id_nasabah' => $id_nasabah,
             'id_sampah' => $id_sampah,
             'jumlah' => $this->input->post('jumlah'),
-            'sub_total' => $this->input->post('subtotal'),
+            'sub_total' => $sub_total,
         ];
 
+        $transaksi = [
+            'id_transaksi' => '',
+            'id_user' => $id_nasabah,
+            'jumlah' => $sub_total,
+            'keterangan' => 'setoran',
+            'tanggal' => date('Y-m-d H:i:s')
+
+        ];
+        $saldoNasabah = $this->ModelSetor->saldoNasabah($id_nasabah)->row();
+        $last_balance = intval($saldoNasabah->saldo + $sub_total);
+        // print_r($last_balance);
+        // die;
+        $this->ModelSetor->updateSaldo($last_balance, $id_nasabah);
+        $this->ModelSetor->tambahTransaksi($transaksi);
         $this->ModelSetor->simpanSetor($data);
         redirect('user/setor');
     }
@@ -77,6 +95,28 @@ class User extends CI_Controller
         $this->load->view('user/setor', $data);
         $this->load->view('templates/footer');
     }
+
+
+    public function cek_saldo()
+    {
+        $data['user'] = $this->db->get_where('user', ['email' =>
+        $this->session->userdata('email')])->row_array();
+        $this->load->model('ModelSetor');
+        // $data['subtotal'] = $this->ModelSetor->saldoNasabah($this->session->userdata('id_user'))->row();
+        $data['saldo'] = $this->ModelSetor->saldoNasabah($this->session->userdata('id_user'))->row();
+        // $data['saldo'] = array_sum($data['subtotal']->sub_total);
+        // print_r($this->session->userdata('id_user'));
+        // die;
+
+        $data['setor'] = $this->ModelSetor->tampilSetoranNasabah($this->session->userdata('id_user'))->result();
+        $data['title'] = 'Cek Saldo';
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('user/cek_saldo', $data);
+        $this->load->view('templates/footer');
+    }
+
 
     function tampilDataNasabah($id_nasabah)
     {
@@ -103,6 +143,20 @@ class User extends CI_Controller
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('user/sampah', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function verifikasi()
+    {
+        $data['user'] = $this->db->get_where('user', ['email' =>
+        $this->session->userdata('email')])->row_array();
+
+        $data['title'] = 'Verifikasi Penarikan';
+        $data['data_sampah'] = $this->ModelSampah->tampilSampah()->result();
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('user/verifikasi', $data);
         $this->load->view('templates/footer');
     }
 
@@ -187,8 +241,6 @@ class User extends CI_Controller
         $kelurahan = $this->input->post('kelurahan');
         $status = $this->input->post('status');
         $pekerjaan = $this->input->post('pekerjaan');
-        $bank = $this->input->post('bank');
-        $no_rekening = $this->input->post('no_rekening');
         $data = [
             'id_user' => '',
             'nik' => $nik,
@@ -204,8 +256,6 @@ class User extends CI_Controller
             'kelurahan' => $kelurahan,
             'status' => $status,
             'pekerjaan' => $pekerjaan,
-            'bank' => $bank,
-            'no_rekening' => $no_rekening,
             'role_id' => '2',
         ];
         if ($this->ModelNasabah->tambahNasabah($data)) {
@@ -218,25 +268,21 @@ class User extends CI_Controller
 
     public function editNasabah()
     {
-        $id = decrypt_url($this->input->post('id_user'));
+        $id = $this->input->post('id_user');
         $nama = $this->input->post('nama');
         $no_telpon = $this->input->post('no_telpon');
         $status = $this->input->post('status');
         $kecamatan = $this->input->post('kecamatan');
         $kelurahan = $this->input->post('kelurahan');
         $alamat = $this->input->post('alamat');
-        $bank = $this->input->post('bank');
-        $no_rekening = $this->input->post('no_rekening');
         $data = [
-            'id_user' => '',
             'nama' => $nama,
             'no_telpon' => $no_telpon,
             'status' => $status,
             'alamat' => $alamat,
             'kecamatan' => $kecamatan,
             'kelurahan' => $kelurahan,
-            'bank' => $bank,
-            'no_rekening' => $no_rekening,
+
         ];
         if ($this->ModelNasabah->editNasabah($data, $id)) {
             echo 'berhasil';
@@ -258,21 +304,6 @@ class User extends CI_Controller
     }
 
 
-    public function cek_saldo()
-    {
-        $data['user'] = $this->db->get_where('user', ['email' =>
-        $this->session->userdata('email')])->row_array();
-
-        $data['tb_setor'] = $this->db->get_where('tb_setor', ['sub_total' =>
-        $this->session->userdata('sub_total')])->row_array();
-
-        $data['title'] = 'Cek Saldo';
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('user/cek_saldo', $data);
-        $this->load->view('templates/footer');
-    }
 
     public function index_nasabah()
     {
@@ -285,5 +316,37 @@ class User extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('user/index_nasabah', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function editProfile()
+    {
+        $data['title'] = 'Edit Profile';
+        $data['user'] = $this->db->get_where('user', ['email' =>
+        $this->session->userdata('email')])->row_array();
+        $this->load->helper(array('form', 'url'));
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('nama', 'nama', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('user/editProfile', $data);
+            $this->load->view('templates/footer');
+        } else {
+
+            $nama = $this->input->post('nama');
+            $email = $this->input->post('email');
+            $this->db->set('nama', $nama);
+            $this->db->where('email', $email);
+            $this->db->update('user');
+
+            $this->session->set_flashdata(
+                'message',
+                '<div class="alert alert-danger" role="alert"> Profile berhasil di update</div>'
+            );
+            redirect('user/index_nasabah');
+        }
     }
 }
