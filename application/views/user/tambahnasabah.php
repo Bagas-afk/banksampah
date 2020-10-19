@@ -3,7 +3,7 @@
     <!-- Page Heading -->
     <h3 class="pb-3"><?= $title; ?></h3>
     <div class="ro pb-3">
-        <form action="<?= base_url('user/tambahAksi') ?>" method="POST">
+        <form action="<?= base_url('user/tambahAksi') ?>" method="POST" enctype="multipart/form-data">
             <form>
                 <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">NIK</label>
@@ -19,7 +19,7 @@
                 </div>
                 <div class="form-group row">
                     <label for="inputPassword3" class="col-sm-2 col-form-label">Tanggal Lahir</label>
-                    <div class="col-sm-2">
+                    <div class="col-sm-4">
                         <input type="date" name="tanggal_lahir" class="form-control" id="inputPassword3">
                     </div>
                 </div>
@@ -113,6 +113,12 @@
                     <label for="inputPassword3" class="col-sm-2 col-form-label">Pekerjaan</label>
                     <div class="col-sm-4">
                         <input type="text" name="pekerjaan" class="form-control" id="inputPassword3">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="file" class="col-sm-2 col-form-label">Upload File KTP</label>
+                    <div class="col-sm-4">
+                        <input class="form-control-file" type="file" id="image" name="file">
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Simpan</button>

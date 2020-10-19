@@ -1,17 +1,57 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
-  <h1 class=""><?= $title; ?></h1>
-  <!-- Page Heading -->
+    <h1 class=""><?= $title; ?></h1>
+    <!-- Page Heading -->
 
-  <div class="card" style="width: 18rem;">
-    <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title" href="<?= base_url('nama') . $user['nama']; ?>"><?= $user['nama']; ?></h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+    <div class="card mb-3" style="max-width: 700px;">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="<?= base_url('assets/img/profile/') . $user['image'] ?> ">
+            </div>
+            <div class="col-md mt-2">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="card-title">Nama Lengkap</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="card-title"><?= $user['nama']; ?></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="card-title">Email</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="card-title"><?= $user['email']; ?></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="card-title">Nomor Telpon</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="card-title"><?= $user['no_telpon']; ?></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="card-title">Alamat</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="card-title"><?= $user['alamat']; ?></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="card-title"> Bergabung sejak</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="card-title"> <?= $user['date_created']; ?></label>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-
 </div>
 <!-- /.container-fluid -->
 

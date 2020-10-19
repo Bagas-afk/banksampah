@@ -23,21 +23,22 @@ function tampilRekening() {
 function tampilSampah() {
 	var idHarga = document.getElementById('namaSampah').value
 	if (idHarga == '') {
-		document.getElementById('nm_sampah').value = ''
+		// document.getElementById('nm_sampah').value = ''
 		document.getElementById('hrg_sampah').value = ''
 		document.getElementById('st_sampah').value = ''
 	} else {
 		$.ajax({
-			url: '/banksampah/user/tampilDataSampah/' + idHarga,
+			url: '/bank-sampah/user/tampilDataSampah/' + idHarga,
 			type: 'get',
 			dataType: 'json',
 			success: function (file) {
+				// console.log(file)
 				if (file) {
-					document.getElementById('nm_sampah').value = file.jenis_sampah
+					// document.getElementById('nm_sampah').value = file.jenis_sampah
 					document.getElementById('hrg_sampah').value = file.harga
 					document.getElementById('st_sampah').value = file.satuan
 				} else {
-					document.getElementById('nm_sampah').value = ''
+					// document.getElementById('nm_sampah').value = ''
 					document.getElementById('hrg_sampah').value = ''
 					document.getElementById('st_sampah').value = ''
 				}

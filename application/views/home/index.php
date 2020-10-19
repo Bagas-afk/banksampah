@@ -56,6 +56,7 @@
                     Dari segi keseimbangan lingkungan, kesehatan dan kebersihan apabila sampah tidak dikelola dengan baik dapat menimbulkan berbagai gangguan-gangguan antara lain pencemaran udara, pencemaran air dan pencemaran tanah.
                 </p>
                 <p class="paragraf">Berdirinya bank sampah di Sawah Baru, Ciputat, Tangerang Selatan, karena adanya permasalahan lingkungan tersebut. Bank Sampah tersebut mengumpulkan sampah dari masyarakat (nasabah) maupun warga luar yang ingin menabung sampah nya di bank sampah yang nantinya akan di timbang (tempat gudang) ataupun di jemput kerumah nasabah dengan harga yang berbeda.</p>
+                <p class="text-right"><a href="<?= base_url('mpdfcontroller/printPDF') ?>" type="button" class="btn btn-info mb-4">Daftar harga sampah</a></p>
             </div>
         </table>
     </div>

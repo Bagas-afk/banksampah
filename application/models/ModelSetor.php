@@ -3,8 +3,8 @@
     public function tampilDataSetor()
     {
         return $this->db->query("SELECT * FROM `tb_setor`
-                                INNER JOIN user ON user.id_user=tb_setor.id_nasabah
-                                INNER JOIN tb_harga ON tb_harga.id_harga=tb_setor.id_sampah");
+                                INNER JOIN user ON user.id=tb_setor.id_user
+                                INNER JOIN tb_harga ON tb_harga.id=tb_setor.id_sampah");
     }
 
     public function simpanSetor($data)
@@ -12,16 +12,21 @@
         return $this->db->insert('tb_setor', $data);
     }
 
+    function countSetor()
+    {
+        return $this->db->get('tb_setor')->num_rows();
+    }
+
     public function saldoNasabah($data)
     {
         $this->db->select('saldo');
-        $this->db->where('id_user', $data);
+        $this->db->where('id', $data);
         return $this->db->get('user');
     }
 
-    public function updateSaldo($last_balance, $id_nasabah)
+    public function updateSaldo($last_balance, $id)
     {
-        $this->db->where('id_user', $id_nasabah);
+        $this->db->where('id', $id);
         $this->db->set('saldo', $last_balance);
         return $this->db->update('user');
     }
@@ -31,11 +36,17 @@
         return $this->db->insert('tb_transaksi', $transaksi);
     }
 
-    public function tampilSetoranNasabah($id_user)
+    public function tampilSetoranNasabah($id)
     {
         return $this->db->query("SELECT * FROM `tb_setor`
-                                INNER JOIN user ON user.id_user=tb_setor.id_nasabah
-                                INNER JOIN tb_harga ON tb_harga.id_harga=tb_setor.id_sampah
-                                WHERE user.id_user = '$id_user'");
+                                INNER JOIN user ON user.id=tb_setor.id_user
+                                INNER JOIN tb_harga ON tb_harga.id=tb_setor.id_sampah
+                                WHERE user.id = '$id'");
+    }
+
+    public function tampilPenarikanNasabah($id)
+    {
+        $this->db->where('keterangan', 'penarikan');
+        return $this->db->get('tb_transaksi');
     }
 }

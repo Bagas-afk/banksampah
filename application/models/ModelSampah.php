@@ -7,7 +7,7 @@
 
     function cari_data_sampah($id)
     {
-        $this->db->where('id_harga', $id);
+        $this->db->where('id', $id);
         return $this->db->get('tb_harga');
     }
 
@@ -18,13 +18,13 @@
 
     function editSampah($data, $id)
     {
-        $this->db->where('id_harga', $id);
+        $this->db->where('id', $id);
         return $this->db->update('tb_harga', $data);
     }
 
     function hapusSampah($id)
     {
-        $this->db->where('id_harga', $id);
+        $this->db->where('id', $id);
         return $this->db->delete('tb_harga');
     }
 

@@ -5,6 +5,10 @@
 
     <!-- Page Heading -->
     <h3><?= $title; ?></h3>
+    <div class="col-sm-6">
+
+        <?= $this->session->flashdata('message'); ?>
+    </div>
     <div class="row pb-4 mb-3">
         <div class="col pb-3">
             <table class="table">
@@ -17,7 +21,7 @@
                             <select name="namanasabah" class="form-control" required onchange="tampilRekening()" id="namaNasabah">
                                 <option value="">-- Pilih Nasabah --</option>
                                 <?php foreach ($nasabah as $nasabah) { ?>
-                                    <option value="<?= $nasabah->id_user ?>"><?= $nasabah->nama ?></option>
+                                    <option value="<?= $nasabah->id ?>"><?= $nasabah->nama ?></option>
                                 <?php  } ?>
                             </select>
                         </div>
@@ -26,11 +30,10 @@
 
             <table class="table">
                 <thead>
-                    <th style="width: 250px;">Jenis Sampah</th>
-                    <th style="width: 230px;">Nama Sampah</th>
+                    <th style="width: 250px;">Jenis sampah</th>
                     <th>Satuan</th>
                     <th>Harga Sampah</th>
-                    <th>Jumlah (KG) </th>
+                    <th>Berat Sampah</th>
                     <th>Sub Total</th>
                 </thead>
                 <tr>
@@ -38,12 +41,9 @@
                         <select id="namaSampah" name="jenis_sampah" class="form-control" onchange="tampilSampah()" required>
                             <option value="">-- Pilih Sampah --</option>
                             <?php foreach ($sampah as $sampah) { ?>
-                                <option value="<?= $sampah->id_harga ?>"><?= $sampah->kategori ?></option>
+                                <option value="<?= $sampah->id ?>"><?= $sampah->jenis_sampah ?></option>
                             <?php  } ?>
                         </select>
-                    </td>
-                    <td>
-                        <input type="text" id="nm_sampah" readonly name="nama_sampah" class="form-control">
                     </td>
                     <td>
                         <input type="text" id="st_sampah" readonly name="satuan" class="form-control">
@@ -52,7 +52,7 @@
                         <input type="text" id="hrg_sampah" readonly name="hargasampah" class="form-control">
                     </td>
                     <td>
-                        <input type="text" name="jumlah" class="form-control" id="jumlahSampah" required>
+                        <input type="text" name="jumlah_kg" class="form-control" id="jumlahSampah" required>
                     </td>
                     <td>
                         <input type="text" id="hasil" readonly name="subtotal" class="form-control">
@@ -69,10 +69,9 @@
                     <th>No</th>
                     <th>Nama Nasabah</th>
                     <th>Jenis Sampah</th>
-                    <th>Nama Sampah</th>
-                    <th>Satuan</th>
                     <th>Harga Sampah</th>
-                    <th>Jumlah</th>
+                    <th>Berat Sampah</th>
+                    <th>Satuan</th>
                     <th>Sub Total</th>
                 </thead>
                 <tbody>
@@ -83,10 +82,9 @@
                             <td><?= $no++ ?></td>
                             <td><?= $tampil->nama ?></td>
                             <td><?= $tampil->jenis_sampah ?></td>
-                            <td><?= $tampil->kategori ?></td>
-                            <td><?= $tampil->satuan ?></td>
                             <td><?= $tampil->harga ?></td>
-                            <td><?= $tampil->jumlah ?></td>
+                            <td><?= $tampil->jumlah_kg ?></td>
+                            <td><?= $tampil->satuan ?></td>
                             <td><?= $tampil->sub_total ?></td>
 
                         </tr>

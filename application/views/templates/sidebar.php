@@ -45,6 +45,11 @@
                 <i class="fas fa-fw fa-money-check-alt"></i>
                 <span>Verifikasi Penarikan</span></a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('user/m_user'); ?>">
+                <i class="fas fa-fw fa-user-edit"></i>
+                <span>Management User</span></a>
+        </li>
 
 
         <!-- Divider -->
@@ -86,7 +91,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('user/index_nasabah'); ?>">
+            <a class="nav-link" href="<?= base_url('nasabah/index_nasabah'); ?>">
                 <i class="fas fa-fw fa-user-alt"></i>
                 <span>My Profile</span></a>
         </li>
@@ -96,7 +101,7 @@
                 <span>Edit Profile</span></a>
         </li> -->
         <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('user/cek_saldo'); ?>">
+            <a class="nav-link" href="<?= base_url('nasabah/cek_saldo'); ?>">
                 <i class="fas fa-fw fa-money-check-alt"></i>
                 <span>Cek Saldo</span></a>
         </li>
